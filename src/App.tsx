@@ -6,31 +6,25 @@ import { Cell } from './Cell'
 import { invertImage } from './Invert'
 import { mergeImage } from './merge'
 
-
-
 let downloadedImg: any;
 
 const downloadImage = (id: string) => {
-
   let imageURL = id.length < 5 ?
     `https://res.cloudinary.com/bekkimg/w_450,c_fill/d_default_image_departmentId2.png/${id}` :
     id;
   downloadedImg = new Image;
   downloadedImg.crossOrigin = "Anonymous";
-  downloadedImg.addEventListener("load", imageReceived, false);
+  downloadedImg.addEventListener("load", () => {
+    const canvas = document.getElementById('original') as HTMLCanvasElement;
+    let context = canvas.getContext("2d") as CanvasRenderingContext2D;;
+    canvas.width = downloadedImg.width;
+    canvas.height = downloadedImg.height;
+    context.drawImage(downloadedImg, 0, 0);
+  }, false);
   downloadedImg.src = imageURL;
 }
 
 
-const imageReceived = () => {
-  const canvas = document.getElementById('original') as HTMLCanvasElement;
-  let context = canvas.getContext("2d") as CanvasRenderingContext2D;;
-
-  canvas.width = downloadedImg.width;
-  canvas.height = downloadedImg.height;
-
-  context.drawImage(downloadedImg, 0, 0);
-}
 
 const convert = (imageId: string, canvasId: string, changeFunction: any) => {
   var originalCanvas = document.getElementById('original') as HTMLCanvasElement;
@@ -66,7 +60,6 @@ class App extends Component<any, State> {
       <div className="App">
         <section >
           <canvas id='original'> </canvas>
-          {/* <img src="https://res.cloudinary.com/bekkimg/w_450,c_fill/d_default_image_departmentId2.png/849" id='raw' alt="bilde" /> */}
         </section>
         <section className='middle'>
           <input type="text" onChange={this.handleChange} />
