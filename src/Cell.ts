@@ -1,15 +1,15 @@
 export class Cell {
 
-    index: number;
     red: number;
     green: number;
     blue: number;
+    alpha: number;
 
-    constructor(index: number, red: number, green: number, blue: number) {
-        this.index = index;
+    constructor(red: number, green: number, blue: number, alpha: number) {
         this.red = red;
         this.green = green;
         this.blue = blue;
+        this.alpha = alpha;
 
     }
 

@@ -1,4 +1,4 @@
-import { Cell } from './Cell'
+import { Cell } from '../Cell'
 
 const turqoise = { red: 85, green: 239, blue: 196 }
 const peterriver = { red: 52, green: 152, blue: 219 }
@@ -12,7 +12,6 @@ const palette = [
 
 
 ]
-
 
 interface Colors {
     red: number;
@@ -33,9 +32,7 @@ function colorDistance(current: Colors, match: Colors) {
         blueDifference * blueDifference;
 }
 
-
 function FindNearestColor(current: Colors): Colors {
-
 
     let index = -1;
     let shortestDistance = Number.MAX_SAFE_INTEGER;
@@ -55,13 +52,14 @@ function FindNearestColor(current: Colors): Colors {
 
 
 
-export function mergeImage(data: any) {
+export function mergeImage(image: ImageData): ImageData {
 
-    for (var i = 0; i < data.length; i += 4) {
-        const reducedColor = FindNearestColor({ red: data[i], green: data[i + 1], blue: data[i + 2] })
-        data[i] = reducedColor.red;
-        data[i + 1] = reducedColor.green;
-        data[i + 2] = reducedColor.blue;
+    for (var i = 0; i < image.data.length; i += 4) {
+        const reducedColor = FindNearestColor({ red: image.data[i], green: image.data[i + 1], blue: image.data[i + 2] })
+        image.data[i] = reducedColor.red;
+        image.data[i + 1] = reducedColor.green;
+        image.data[i + 2] = reducedColor.blue;
     }
+    return new ImageData(image.data, image.width, image.height);
 
 }

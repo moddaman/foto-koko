@@ -3,16 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import bilde from './bilde.png';
 import { Cell } from './Cell'
-import { invertImage } from './Invert'
-import { mergeImage } from './merge'
+import { invertImage, mergeImage, whitenImage } from './Algorithms'
 
-let downloadedImg: any;
 
 const downloadImage = (id: string) => {
-  let imageURL = id.length < 5 ?
+  const imageURL = id.length < 5 ?
     `https://res.cloudinary.com/bekkimg/w_450,c_fill/d_default_image_departmentId2.png/${id}` :
     id;
-  downloadedImg = new Image;
+  let downloadedImg = new Image;
   downloadedImg.crossOrigin = "Anonymous";
   downloadedImg.addEventListener("load", () => {
     const canvas = document.getElementById('original') as HTMLCanvasElement;
@@ -24,9 +22,9 @@ const downloadImage = (id: string) => {
   downloadedImg.src = imageURL;
 }
 
+type manipulateFunction = (image: ImageData) => ImageData;
 
-
-const convert = (imageId: string, canvasId: string, changeFunction: any) => {
+const convert = (imageId: string, canvasId: string, changeFunction: manipulateFunction) => {
   var originalCanvas = document.getElementById('original') as HTMLCanvasElement;
   const newCanvas = document.getElementById(canvasId) as HTMLCanvasElement;
   const context = originalCanvas.getContext('2d') as CanvasRenderingContext2D;
@@ -37,8 +35,8 @@ const convert = (imageId: string, canvasId: string, changeFunction: any) => {
   console.log(originalCanvas.width, originalCanvas.height);
   if (context) {
     var imageData = context.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
-    changeFunction(imageData.data);
-    newContext.putImageData(imageData, 0, 0);
+    const image = changeFunction(imageData);
+    newContext.putImageData(image, 0, 0);
   }
 };
 
@@ -63,9 +61,11 @@ class App extends Component<any, State> {
         </section>
         <section className='middle'>
           <input type="text" onChange={this.handleChange} />
-          <button onClick={() => downloadImage(this.state.id)}>downloadImage</button>
+          <button onClick={() => downloadImage(this.state.id)}>last ned bilde</button>
           <button onClick={() => convert('original', 'result', mergeImage)}>reduce</button>
           <button onClick={() => convert('original', 'result', invertImage)}>Halloween</button>
+          <button onClick={() => convert('original', 'result', whitenImage)}>Gjør hvitere</button>
+
         </section>
         <section>
           <canvas id='result'> </canvas>

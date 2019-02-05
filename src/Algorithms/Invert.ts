@@ -1,22 +1,18 @@
-import { Cell } from './Cell'
+import { Cell } from '../Cell'
 
-
-function invert(cell: Cell): Cell {
-    return {
-        red: cell.red ^ 255,
-        green: cell.green ^ 255,
-        blue: cell.blue ^ 255,
-        index: cell.index
-    }
+function invert(red: number, green: number, blue: number, alpha: number): Cell {
+    return new Cell(red ^ 255, green ^ 255, blue ^ 255, 50);
 }
 
-export function invertImage(data: any) {
+export function invertImage(image: ImageData): ImageData {
 
-    for (var i = 0; i < data.length; i += 4) {
-        const converted = invert(new Cell(i, data[i], data[i + 1], data[i + 2]));
-        data[i] = converted.red;
-        data[i + 1] = converted.green;
-        data[i + 2] = converted.blue;
+    console.log(image.data)
+    for (var i = 0; i < image.data.length; i += 4) {
+        const converted = invert(image.data[i], image.data[i + 1], image.data[i + 2], image.data[i + 3]);
+        image.data[i] = converted.red;
+        image.data[i + 1] = converted.green;
+        image.data[i + 2] = converted.blue;
+        image.data[i + 3] = converted.alpha;
     }
-
+    return new ImageData(image.data, image.width, image.height);
 }
