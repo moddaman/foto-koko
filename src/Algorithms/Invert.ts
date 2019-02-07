@@ -12,7 +12,8 @@ export function invertImage(image: ImageData): ImageData {
         image.data[i] = converted.red;
         image.data[i + 1] = converted.green;
         image.data[i + 2] = converted.blue;
-        image.data[i + 3] = converted.alpha;
+        image.data[i + 3] = 255;
+
     }
     return new ImageData(image.data, image.width, image.height);
 }

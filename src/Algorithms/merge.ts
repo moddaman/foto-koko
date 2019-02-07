@@ -4,11 +4,15 @@ const turqoise = { red: 85, green: 239, blue: 196 }
 const peterriver = { red: 52, green: 152, blue: 219 }
 
 const palette = [
-    { red: 85, green: 239, blue: 196 },
-    { red: 52, green: 152, blue: 219 },
-    { red: 46, green: 204, blue: 113 },
+    // { red: 85, green: 239, blue: 196 },
+    // { red: 52, green: 152, blue: 219 },
+    // { red: 46, green: 204, blue: 113 },
     { red: 0, green: 0, blue: 0 },
-    { red: 255, green: 255, blue: 255 }
+    { red: 243, green: 243, blue: 243 },
+    { red: 255, green: 255, blue: 255 },
+    { red: 120, green: 120, blue: 120 },
+
+
 
 
 ]

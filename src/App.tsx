@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import bilde from './bilde.png';
 import { Cell } from './Cell'
-import { invertImage, mergeImage, whitenImage } from './Algorithms'
+import { invertImage, mergeImage, colorOddPixels, yourAlgorithm } from './Algorithms'
 
 
 const downloadImage = (id: string) => {
@@ -64,7 +64,9 @@ class App extends Component<any, State> {
           <button onClick={() => downloadImage(this.state.id)}>last ned bilde</button>
           <button onClick={() => convert('original', 'result', mergeImage)}>reduce</button>
           <button onClick={() => convert('original', 'result', invertImage)}>Halloween</button>
-          <button onClick={() => convert('original', 'result', whitenImage)}>Gjør hvitere</button>
+          <button onClick={() => convert('original', 'result', colorOddPixels)}>Fargelegg annenhver piksel</button>
+          <button onClick={() => convert('original', 'result', yourAlgorithm)}>Din algoritme her</button>
+
 
         </section>
         <section>
